@@ -50,9 +50,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mandarparab/rankaudit"
-Repository = "https://github.com/mandarparab/rankaudit"
-"Bug Tracker" = "https://github.com/mandarparab/rankaudit/issues"
+Homepage = "https://github.com/m-np/rankaudit"
+Repository = "https://github.com/m-np/rankaudit"
+"Bug Tracker" = "https://github.com/m-np/rankaudit/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/rankaudit"]

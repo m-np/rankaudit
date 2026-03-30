@@ -158,6 +158,41 @@ class MyRanker:
         return [(p.doc_id, sum(p.features.values())) for p in pairs]
 ```
 
+### What is required vs optional on each input
+
+| Field | Required? | Used by |
+|---|---|---|
+| `query_id`, `query_text` | Yes | All steps |
+| `doc_id`, `doc_text` | Yes | All steps |
+| `features` | No | Attribution (SHAP/LIME) and counterfactuals only |
+| `relevance` | No | IR metrics (NDCG, MAP, MRR, Precision@k) — all return 0 if omitted |
+| `metadata["group"]` | No | Bias detector — exposure and parity analysis only run when group labels are present |
+
+**What you get without optional fields:**
+
+```python
+# No features, no relevance, no group labels — still works
+pairs = [
+    QueryDocPair(query_id="q1", query_text="query", doc_id="d1", doc_text="doc text"),
+    ...
+]
+
+# Skip the steps that need features
+report = ra.audit(
+    ranker=my_ranker,
+    pairs=pairs,
+    attribution=None,       # requires features
+    counterfactuals=False,  # requires features
+)
+# → report.metrics will have NDCG/MAP of 0 (no relevance labels)
+# → report.bias will have position_bias only (no group labels)
+```
+
+**Full audit requires:**
+- `features` — for attribution and counterfactuals
+- `relevance` — for meaningful NDCG, MAP, MRR, Precision@k values
+- `metadata["group"]` — for exposure and demographic parity bias analysis
+
 ---
 
 ## Outputs
@@ -178,7 +213,17 @@ Bias checks     : 2 queries analysed
 
 ### report.metrics — ranking quality
 
-NDCG, Precision@k, MAP, and MRR for every query:
+All four metrics require `relevance` labels on your input pairs. They return 0 if no relevance labels are provided.
+
+| Metric | What it measures | `metrics=` value |
+|---|---|---|
+| **NDCG@k** | Quality of the top-k ranking, weighted by position | `"ndcg"` |
+| **Precision@k** | Fraction of relevant docs in the top-k | `"precision"` |
+| **MAP** | Average precision across all relevant docs | `"map"` |
+| **MRR** | How high the first relevant doc appears | `"mrr"` |
+| **Fairness / bias** | Exposure and parity across groups | `"fairness"` |
+
+Pass any combination to `ra.audit(metrics=[...])`. Default is `["ndcg", "fairness"]`.
 
 ```python
 for m in report.metrics:

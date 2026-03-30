@@ -6,7 +6,6 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/m-np/rankaudit/blob/main/LICENSE)
 [![Tests](https://img.shields.io/badge/tests-19%20passed-brightgreen)](https://github.com/m-np/rankaudit/blob/main)
 [![Python](https://img.shields.io/pypi/pyversions/rankaudit)](https://pypi.org/project/rankaudit/)
-[![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-ARB%20Benchmark-yellow)](https://huggingface.co/datasets/m-np/arb)
 
 > Ranking systems decide what people see and in what order — jobs, loans, news, products. RankAudit makes them inspectable.
 

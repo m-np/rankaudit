@@ -268,33 +268,6 @@ report.to_dict()   # plain Python dict
 
 ---
 
-## ARB — Accountability Ranking Benchmark
-
-RankAudit ships with **ARB**, a standardised evaluation suite for auditing rankers across three axes: fairness, stability under perturbation, and explainability consistency. ARB is available on HuggingFace and provides:
-
-- Curated query-document sets across news, e-commerce, and government document domains
-- Ground-truth relevance labels and protected-attribute annotations
-- A public leaderboard for comparing ranker accountability across systems
-
-> **Coming July 2026** — ARB and the leaderboard are under active development.
-
-[View the ARB dataset on HuggingFace →](https://huggingface.co/datasets/m-np/arb)
-
----
-
-## Roadmap
-
-| Milestone | Target | Status |
-|---|---|---|
-| v0.1.0 on PyPI — core pipeline + SHAP adapter | April 2026 | 🔄 In progress |
-| Counterfactual engine v1 | May 2026 | 📋 Planned |
-| ARB benchmark on HuggingFace | July 2026 | 📋 Planned |
-| RankExplain v1 — LLM explanation layer | August 2026 | 📋 Planned |
-| ONNX ranker adapter | Q3 2026 | 📋 Planned |
-| Streamlit / Gradio web demo | Q3 2026 | 📋 Planned |
-
----
-
 ## Citation
 
 If you use RankAudit in your research, please cite:
